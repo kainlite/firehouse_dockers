@@ -7,4 +7,4 @@ RUN cd FireAlerter && bundle install
 
 EXPOSE 9800:9800
 
-CMD [ "bundle exec rake" ]
+CMD [ "cd $HOME/FireAlerter && bundle exec rake" ]
