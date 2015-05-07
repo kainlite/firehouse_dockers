@@ -1,0 +1,19 @@
+
+list
+
+== COMMANDS
+
+- docker run -p 9800:9800 --rm -d shelvak/firealerter:1.0
+
+== Deploy
+```bash
+cd firehouse
+git pull --rebase
+cd ..
+docker build -t shelvak/firehose firehouse/
+docker run -p 9000 --rm -d shelvak/firehouse
+
+NOTAS
+
+- Crear /shared/firehouse/public(nginx) <=> /rails_root/firehouse/public(firehouse)
+- /tmp para todos y todas
