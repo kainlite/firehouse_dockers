@@ -2,8 +2,9 @@
 list
 
 == COMMANDS
-
-- docker run -p 9800:9800 --rm -d shelvak/firealerter:1.0
+`global -v /shared:/shared -v /tmp:/tmp --rm -d` ## O configurar con fig
+- docker run -p 9800:9800 -d shelvak/firealerter:1.0
+- docker run -p 80:80 -d shelvak/nginx
 
 == Deploy
 ```bash
@@ -17,3 +18,7 @@ NOTAS
 
 - Crear /shared/firehouse/public(nginx) <=> /rails_root/firehouse/public(firehouse)
 - /tmp para todos y todas
+
+USAR FIG
+
+agregar /shared/firehouse.app_config.yml
