@@ -7,7 +7,6 @@ psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -U postgres \
 
 export RAILS_ENV=production
 cd /firehouse
-bundle install --without development test --deployment --quiet
 bundle exec rake db:create
 bundle exec rake db:migrate
 bundle exec rake assets:precompile
