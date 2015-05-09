@@ -1,0 +1,42 @@
+firehouse:
+  build: ./firehouse
+  volumes:
+    "/shared": "shared"
+    "/logs": "volumes/logs"
+  links:
+    - postgres
+    - redis
+
+postgres:
+  build: ./postgres
+  ports:
+    - "5432"
+  volumes:
+    "/shared": "shared"
+    "/logs": "volumes/logs"
+    "/var/lib/postgresql/": "volumes/postgres-data"
+
+redis:
+  build: ./redis
+  ports:
+    - 6379
+  volumes:
+    "/shared": "shared"
+    "/logs": "volumes/logs"
+    "/data": "volumes/redis-data"
+
+nginx:
+  build: ./nginx
+  volumes:
+    "/shared": "shared"
+    "/logs": "volumes/logs"
+  ports:
+    - 80:80
+
+firealerter:
+  build: ./firealerter
+  volumes:
+    "/shared": "shared"
+    "/logs": "volumes/logs"
+  ports:
+    - 9800:9800

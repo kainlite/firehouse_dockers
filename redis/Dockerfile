@@ -1,7 +1,5 @@
 FROM phusion/baseimage
 
-RUN groupadd -r redis && useradd -r -g redis redis
-
 RUN apt-get update \
   && apt-get install -y curl \
   && rm -rf /var/lib/apt/lists/*
@@ -33,12 +31,9 @@ RUN buildDeps='gcc libc6-dev make'; \
   && rm -r /usr/src/redis \
   && apt-get purge -y --auto-remove $buildDeps
 
-RUN mkdir /data && chown redis:redis /data
+RUN mkdir -p /data
 VOLUME /data
 WORKDIR /data
 
-COPY docker-entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
-
 EXPOSE 6379
-CMD [ "redis-server" ]
+CMD redis-server
