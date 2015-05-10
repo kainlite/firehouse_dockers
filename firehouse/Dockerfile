@@ -13,12 +13,22 @@ ADD database.yml /firehouse/config/database.yml
 ADD starting_the_milonga.sh /firehouse/starting_the_milonga.sh
 RUN chmod 777 /firehouse/starting_the_milonga.sh
 
+RUN mkdir -p /shared
+RUN mkdir -p /shared/firehouse
+RUN mkdir -p /shared/firehouse/public
+RUN mkdir -p /shared/firehouse/uploads
+RUN mkdir -p /shared/firehouse/log
+RUN rm -Rf /firehouse/public
+RUN rm -Rf /firehouse/uploads
+RUN ln -sf /shared/firehouse/public /firehouse
+RUN ln -sf /shared/firehouse/uploads /firehouse
+RUN ln -sf /shared/firehouse/log /firehouse
+
 WORKDIR firehouse
 
 RUN cp config/app_config.example.yml config/app_config.yml
-RUN mkdir -p /shared
-RUN ln -sf $(pwd) /shared/firehouse
 
 RUN bundle install --without development test --deployment --quiet
 
-CMD bundle exec unicorn -E production -c config/unicorn.rb
+CMD bundle exec unicorn_rails -c /firehouse/config/unicorn.rb -E production
+

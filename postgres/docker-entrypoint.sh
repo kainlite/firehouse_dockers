@@ -1,5 +1,4 @@
 #!/bin/bash
-echo "ola k ase"
 set -e
 
 if [ "$1" = 'postgres' ]; then
