@@ -22,6 +22,7 @@ RUN rm -Rf /firehouse/public
 RUN rm -Rf /firehouse/uploads
 RUN ln -sf /shared/firehouse/public /firehouse
 RUN ln -sf /shared/firehouse/uploads /firehouse
+RUN ln -sf /shared/firehouse/uploads /firehouse/public
 RUN ln -sf /shared/firehouse/log /firehouse
 
 WORKDIR firehouse

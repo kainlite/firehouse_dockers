@@ -1,6 +1,13 @@
 
 list
 
+== Install
+- docker build -t shelvak/ruby:2.1 ruby/
+- apt-get install python-pip
+- pip install docker-compose
+- docker-compose build
+- docker-compose up -d
+
 == COMMANDS
 `global -v /shared:/shared -v /tmp:/tmp --rm -d` ## O configurar con fig
 - docker run -p 9800:9800 -d shelvak/firealerter:1.0
