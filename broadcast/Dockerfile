@@ -1,35 +1,46 @@
-FROM phusion/baseimage
+FROM ubuntu:14.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
+MAINTAINER Nestor Coppi
+
+#RUN apt-add-repository -y multiverse
+RUN echo "deb http://archive.ubuntu.com/ubuntu/ trusty multiverse" >> /etc/apt/sources.list
 RUN apt-get update
-RUN apt-get -qq -y install build-essential devscripts autotools-dev \
-  fakeroot dpkg-dev debhelper autotools-dev dh-make quilt ccache \
-  libsamplerate0-dev libpulse-dev libaudio-dev lame libjack-jackd2-dev \
-  libasound2-dev libtwolame-dev libfaad-dev libflac-dev \
-  libshout3-dev libmp3lame-dev
+RUN apt-get -qq -y install build-essential libasound2-dev libasound2 \
+	libasound2-data module-init-tools libsndfile1-dev gstreamer0.10-alsa \
+	gstreamer0.10-doc gstreamer0.10-ff* gstreamer0.10-tools gstreamer0.10-x \
+	gstreamer0.10-plugins-bad gstreamer0.10-plugins-base linux-sound-base \
+	gstreamer0.10-plugins-good gstreamer0.10-plugins-ugly \
+	libgstreamer-plugins-base0.10-0 libgstreamer-plugins-base0.10-dev \
+	libgstreamer0.10-0 libgstreamer0.10-dev  python-setuptools\
+	icecast2 darkice
 
-RUN apt-get -qq -y install icecast2 darkice
+RUN apt-get install -y pavucontrol
+
+RUN apt-get clean
+
+RUN update-rc.d icecast2 defaults
+RUN update-rc.d icecast2 enable
+
+#RUN ls /dev
+#RUN modprobe snd-dummy
+#RUN ls /dev |grep sndA
+#RUN pulseaudio --start
+#RUN pactl load-module module-loopback latency_msec=1
+# padsp darkice ## <== Le pasa el /dev/dsp
+# RUN echo snd-seq-oss snd-pcm-oss snd-mixer-oss | xargs -n 1 modprobe 
 
 
-########################
-FROM ubuntu:trusty
 
-MAINTAINER Manfred Touron "m@42.am"
 
-ENV DEBIAN_FRONTEND noninteractive
-
-RUN apt-get -qq -y update && \
-    apt-get -qq -y install icecast2 python-setuptools && \
-    apt-get clean
-
-RUN easy_install supervisor && \
-    easy_install supervisor-stdout
-
-CMD ["/start.sh"]
 EXPOSE 8000
 VOLUME ["/config", "/var/log/icecast2", "/etc/icecast2"]
 
-ADD ./start.sh /start.sh
-ADD ./etc /etc
-RUN chown -R icecast2 /etc/icecast2
+RUN addgroup icecast2
+
+ADD icecast.xml /etc/icecast2/icecast.xml
+ADD icecast2-default /etc/default/icecast2
+ADD darkice.cfg /etc/darkice.cfg
+
+CMD /usr/bin/darkice
