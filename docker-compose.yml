@@ -1,9 +1,12 @@
 firehouse:
   build: ./firehouse
+  privileged: true
   volumes:
+    - /dev/snd:/dev/snd:rw
     - shared/:/shared:rw
     - volumes/logs:/logs:rw
     - /tmp/:/tmp:rw
+    - firehouse/:/firehouse:rw
   links:
     - postgres
     - redis
@@ -30,6 +33,7 @@ nginx:
   build: ./nginx
   volumes:
     - shared/:/shared:rw
+    - firehouse/:/firehouse:ro
     - volumes/logs:/logs:rw
     - /tmp/:/tmp:rw
   ports:
@@ -40,5 +44,17 @@ firealerter:
   volumes:
     - shared/:/shared:rw
     - volumes/logs:/logs:rw
+  links:
+    - redis
   ports:
     - 9800:9800
+
+broadcast:
+  build: ./broadcast
+  privileged: true
+  volumes:
+    - shared/:/shared:rw
+    - volumes/logs:/logs:rw
+    - /dev/snd:/dev/snd:rw
+  ports:
+    - 8000:8000

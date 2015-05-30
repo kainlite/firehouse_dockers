@@ -5,7 +5,7 @@ upstream firehouse {
 server {
   listen       80 default;
   server_name  default_server localhost;
-  root /shared/firehouse/public;
+  root /firehouse/public;
   client_max_body_size 128M;
 
   try_files $uri @app;
@@ -23,7 +23,12 @@ server {
   }
 
   location /uploads/ {
-    root /shared/firehouse;
+    root /firehouse;
+    expires max;
+    add_header Cache-Control public;
+  }
+
+  location /assets/ {
     expires max;
     add_header Cache-Control public;
   }
