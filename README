@@ -23,8 +23,8 @@ docker run -p 9000 --rm -d shelvak/firehouse
 
 NOTAS
 
-- Crear /shared/firehouse/public(nginx) <=> /rails_root/firehouse/public(firehouse)
-- /tmp para todos y todas
+
+
 
 USAR FIG
 
