@@ -50,11 +50,15 @@ firealerter:
     - 9800:9800
 
 broadcast:
+  environment:
+    firehouse_path: /firehouse
+    logs_path: /logs
   build: ./broadcast
   privileged: true
   volumes:
     - shared/:/shared:rw
     - volumes/logs:/logs:rw
     - /dev/snd:/dev/snd:rw
+    - firehouse/:/firehouse:ro
   ports:
     - 8000:8000

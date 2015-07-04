@@ -42,4 +42,7 @@ ADD darkice.cfg /etc/darkice.cfg
 ADD start.sh /start.sh
 RUN chmod 777 /start.sh
 
+RUN git clone https://github.com/FRM-UTN/firehouse_audio
+RUN cd firehouse_audio && bundle install
+
 CMD ["/start.sh"]
