@@ -58,7 +58,9 @@ broadcast:
   volumes:
     - shared/:/shared:rw
     - volumes/logs:/logs:rw
-    - /dev/snd:/dev/snd:rw
     - firehouse/:/firehouse:ro
+    - shared/:/shared:rw
   ports:
     - 8000:8000
+  links:
+    - redis
