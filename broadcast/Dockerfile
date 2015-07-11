@@ -62,7 +62,6 @@ EXPOSE 8000
 VOLUME ["/config", "/var/log/icecast2", "/etc/icecast2"]
 
 RUN addgroup icecast2
-
 ADD icecast.xml /etc/icecast2/icecast.xml
 ADD icecast2-default /etc/default/icecast2
 ADD darkice.cfg /etc/darkice.cfg
@@ -71,6 +70,7 @@ RUN apt-get install -qq -y mplayer
 RUN mkdir -p $HOME/.mplayer
 RUN echo "lirc=no" >> $HOME/.mplayer/config
 
+RUN apt-get update
 RUN apt-get -qq -y install linphone
 
 ADD start.sh /start.sh
