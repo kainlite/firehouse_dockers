@@ -62,3 +62,14 @@ broadcast:
     - firehouse/:/firehouse:ro
   ports:
     - 8000:8000
+
+socketio:
+  build: ./socketio
+  volumes:
+    - shared/:/shared:rw
+    - volumes/logs:/logs:rw
+  links:
+    - redis
+  ports:
+    - 8085:8085
+
