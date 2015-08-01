@@ -49,7 +49,7 @@ RUN cd firehouse_audio && bundle install
 RUN update-rc.d icecast2 defaults
 RUN update-rc.d icecast2 enable
 RUN usermod -aG pulse,pulse-access root
-RUN pulseaudio -D
+RUN pulseaudio --system -D
 # RUN ls /dev
 # RUN modprobe snd-dummy
 # RUN ls /dev |grep sndA
@@ -57,6 +57,12 @@ RUN pulseaudio -D
 # RUN pactl load-module module-loopback latency_msec=1
 #  padsp darkice ## <== Le pasa el /dev/dsp
 #  RUN echo snd-seq-oss snd-pcm-oss snd-mixer-oss | xargs -n 1 modprobe
+
+RUN apt-get install -qq -y mplayer
+RUN mkdir -p $HOME/.mplayer
+RUN echo "lirc=no" >> $HOME/.mplayer/config
+RUN apt-get update
+RUN apt-get -qq -y install linphone
 
 EXPOSE 8000
 VOLUME ["/config", "/var/log/icecast2", "/etc/icecast2"]
@@ -66,12 +72,6 @@ ADD icecast.xml /etc/icecast2/icecast.xml
 ADD icecast2-default /etc/default/icecast2
 ADD darkice.cfg /etc/darkice.cfg
 
-RUN apt-get install -qq -y mplayer
-RUN mkdir -p $HOME/.mplayer
-RUN echo "lirc=no" >> $HOME/.mplayer/config
-
-RUN apt-get update
-RUN apt-get -qq -y install linphone
 
 ADD start.sh /start.sh
 RUN chmod 777 /start.sh

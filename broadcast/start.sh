@@ -1,13 +1,15 @@
 #!/bin/bash
 
 echo "entrose"
-echo $(ps aux |grep pulse)
+pulseaudio -k
 pulseaudio -k
 sleep 1
-pulseaudio --system -D
+pulseaudio -D --system 
 sleep 2
 echo "Pulse and icecast: "
+pulseaudio -k
 echo $(ps aux |grep pulse)
+sleep 1
 echo $(ps aux |grep icecast)
 /etc/init.d/icecast2 start
 sleep 2
@@ -21,6 +23,7 @@ echo $(ps aux |grep rake)
 
 
 cd /
+darkice
 
 #cd /
 
@@ -32,4 +35,3 @@ cd /
 #linphonecsh register --host 192.168.1.10 --username linphone --password linphone1234 && \
   #linphonecsh generic 'autoanswer enable'
 
-darkice
