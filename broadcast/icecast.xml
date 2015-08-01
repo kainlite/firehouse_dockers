@@ -7,8 +7,8 @@
     <client-timeout>30</client-timeout>
     <header-timeout>15</header-timeout>
     <source-timeout>600</source-timeout>
-    <!-- <burst-on-connect>1</burst-on-connect> -->
-    <burst-size>64</burst-size>
+    <burst-on-connect>1</burst-on-connect>
+    <burst-size>512</burst-size>
   </limits>
 
   <authentication>
@@ -47,4 +47,3 @@
     <chroot>0</chroot>
   </security>
 </icecast>
-
