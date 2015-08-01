@@ -10,6 +10,7 @@ firehouse:
   links:
     - postgres
     - redis
+    - socketio
 
 postgres:
   build: ./postgres
@@ -64,3 +65,14 @@ broadcast:
     - 8000:8000
   links:
     - redis
+
+socketio:
+  build: ./socketio
+  volumes:
+    - shared/:/shared:rw
+    - volumes/logs:/logs:rw
+  links:
+    - redis
+  ports:
+    - 8085:8085
+
