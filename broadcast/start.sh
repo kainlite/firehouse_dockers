@@ -4,7 +4,7 @@ echo "entrose"
 pulseaudio -k
 pulseaudio -k
 sleep 1
-pulseaudio -D --system 
+pulseaudio -D --system
 sleep 2
 echo "Pulse and icecast: "
 pulseaudio -k
@@ -18,8 +18,8 @@ sleep 2
 echo "Icecast: "
 echo $(ps aux |grep icecast)
 echo "Rake:"
-
-cd /firehouse_audio && bundle exec rake &
+cd /firehouse_audio
+bundle exec rake&
 sleep 1
 echo $(ps aux |grep rake)
 cd /
