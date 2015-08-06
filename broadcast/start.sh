@@ -10,20 +10,22 @@ echo "Pulse and icecast: "
 pulseaudio -k
 echo $(ps aux |grep pulse)
 sleep 1
+pulseaudio -k
+sleep 1
 echo $(ps aux |grep icecast)
 /etc/init.d/icecast2 start
 sleep 2
 echo "Icecast: "
 echo $(ps aux |grep icecast)
-
 echo "Rake:"
-cd /firehouse_audio && bundle exec rake&
+
+cd /firehouse_audio && bundle exec rake &
 sleep 1
 echo $(ps aux |grep rake)
-
-
 cd /
-darkice
+echo `whereis darkice`
+/usr/bin/darkice &
+bash
 
 #cd /
 
