@@ -75,4 +75,5 @@ ADD darkice.cfg /etc/darkice.cfg
 
 ADD start.sh /start.sh
 RUN chmod 777 /start.sh
+
 CMD ["/start.sh"]

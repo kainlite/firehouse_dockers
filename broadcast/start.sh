@@ -18,14 +18,18 @@ sleep 2
 echo "Icecast: "
 echo $(ps aux |grep icecast)
 echo "Rake:"
-cd /firehouse_audio
-bundle exec rake&
 sleep 1
 echo $(ps aux |grep rake)
 cd /
+echo  `pwd`
 echo `whereis darkice`
-/usr/bin/darkice &
-bash
+/usr/bin/darkice&
+
+cd /firehouse_audio
+bundle exec rake
+#sleep 5
+#sh
+
 
 #cd /
 
