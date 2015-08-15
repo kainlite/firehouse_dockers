@@ -1,3 +1,4 @@
+
 firehouse:
   build: ./firehouse
   privileged: true
@@ -11,15 +12,19 @@ firehouse:
     - postgres
     - redis
     - socketio
+  environment:
+    SERVER_HOST: 192.168.1.200
 
 postgres:
   build: ./postgres
   ports:
-    - "5432"
+    - 5432:5432
   volumes:
     - shared/:/shared:rw
     - volumes/logs:/logs:rw
     - volumes/postgres-data/:/var/lib/postgresql:rw
+  environment:
+    SERVER_HOST: 192.168.1.200
 
 redis:
   build: ./redis
@@ -29,6 +34,8 @@ redis:
     - shared/:/shared:rw
     - volumes/logs/:/logs:rw
     - volumes/redis-data/:/data:rw
+  environment:
+    SERVER_HOST: 192.168.1.200
 
 nginx:
   build: ./nginx
@@ -49,6 +56,8 @@ firealerter:
     - redis
   ports:
     - 9800:9800
+  environment:
+    SERVER_HOST: 192.168.1.200
 
 broadcast:
   environment:
@@ -65,6 +74,8 @@ broadcast:
     - 8000:8000
   links:
     - redis
+  environment:
+    SERVER_HOST: 192.168.1.200
 
 socketio:
   build: ./socketio
@@ -75,4 +86,6 @@ socketio:
     - redis
   ports:
     - 8085:8085
+  environment:
+    SERVER_HOST: 192.168.1.200
 
