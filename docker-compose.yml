@@ -63,6 +63,7 @@ broadcast:
   environment:
     firehouse_path: /firehouse
     logs_path: /logs
+    SERVER_HOST: 192.168.1.200
   build: ./broadcast
   privileged: true
   volumes:
@@ -74,8 +75,6 @@ broadcast:
     - 8000:8000
   links:
     - redis
-  environment:
-    SERVER_HOST: 192.168.1.200
 
 socketio:
   build: ./socketio
