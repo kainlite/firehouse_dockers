@@ -7,8 +7,8 @@
     <client-timeout>30</client-timeout>
     <header-timeout>15</header-timeout>
     <source-timeout>600</source-timeout>
-    <!-- <burst-on-connect>1</burst-on-connect> -->
-    <burst-size>32</burst-size>
+    <burst-on-connect>0</burst-on-connect>
+    <burst-size>0</burst-size>
   </limits>
 
   <authentication>
@@ -27,10 +27,20 @@
   </listen-socket>
   <fileserve>1</fileserve>
 
+  <mount>
+    <mount-name>/bombastic</mount-name>
+    <password>1234</password>
+    <max-listeners>100</max-listeners>
+    <burst-size>0</burst-size>
+    <hidden>0</hidden>
+    <public>1</public>
+    <mp3-metadata-interval>1250000</mp3-metadata-interval> <!-- 10Mb -->
+  </mount>
+
   <paths>
     <basedir>/usr/share/icecast2</basedir>
 
-    <logdir>/var/log/icecast2</logdir>
+    <logdir>/logs/icecast</logdir>
     <webroot>/usr/share/icecast2/web</webroot>
     <adminroot>/usr/share/icecast2/admin</adminroot>
     <alias source="/" dest="/status.xsl"/>
@@ -39,11 +49,9 @@
   <logging>
     <accesslog>access.log</accesslog>
     <errorlog>error.log</errorlog>
-    <loglevel>3</loglevel> <!-- 4 Debug, 3 Info, 2 Warn, 1 Error -->
+    <playlistlog>playlist.log</playlistlog>
+    <loglevel>4</loglevel> <!-- 4 Debug, 3 Info, 2 Warn, 1 Error -->
     <logsize>10000</logsize> <!-- Max size of a logfile -->
+    <logarchive>1</logarchive>
   </logging>
-
-  <security>
-    <chroot>0</chroot>
-  </security>
 </icecast>
