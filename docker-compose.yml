@@ -4,10 +4,10 @@ firehouse:
   privileged: true
   volumes:
     - /dev/snd:/dev/snd:rw
-    - shared/:/shared:rw
-    - volumes/logs:/logs:rw
+    - /shared/:/shared:rw
+    - /volumes/logs:/logs:rw
     - /tmp/:/tmp:rw
-    - firehouse/:/firehouse:rw
+    - /firehouse/:/firehouse:rw
   links:
     - postgres
     - redis
@@ -20,9 +20,9 @@ postgres:
   ports:
     - 5432:5432
   volumes:
-    - shared/:/shared:rw
-    - volumes/logs:/logs:rw
-    - volumes/postgres-data/:/var/lib/postgresql:rw
+    - /shared/:/shared:rw
+    - /volumes/logs:/logs:rw
+    - /volumes/postgres-data/:/var/lib/postgresql:rw
   environment:
     SERVER_HOST: 192.168.1.200
 
@@ -31,18 +31,18 @@ redis:
   ports:
     - 6379
   volumes:
-    - shared/:/shared:rw
-    - volumes/logs/:/logs:rw
-    - volumes/redis-data/:/data:rw
+    - /shared/:/shared:rw
+    - /volumes/logs/:/logs:rw
+    - /volumes/redis-data/:/data:rw
   environment:
     SERVER_HOST: 192.168.1.200
 
 nginx:
   build: ./nginx
   volumes:
-    - shared/:/shared:rw
-    - firehouse/:/firehouse:ro
-    - volumes/logs:/logs:rw
+    - /shared/:/shared:rw
+    - /firehouse/:/firehouse:ro
+    - /volumes/logs:/logs:rw
     - /tmp/:/tmp:rw
   ports:
     - 80:80
@@ -50,8 +50,8 @@ nginx:
 firealerter:
   build: ./firealerter
   volumes:
-    - shared/:/shared:rw
-    - volumes/logs:/logs:rw
+    - /shared/:/shared:rw
+    - /volumes/logs:/logs:rw
   links:
     - redis
   ports:
@@ -67,10 +67,10 @@ broadcast:
   build: ./broadcast
   privileged: true
   volumes:
-    - shared/:/shared:rw
-    - volumes/logs:/logs:rw
-    - firehouse/:/firehouse:ro
-    - shared/:/shared:rw
+    - /shared/:/shared:rw
+    - /volumes/logs:/logs:rw
+    - /firehouse/:/firehouse:ro
+    - /shared/:/shared:rw
   ports:
     - 8000:8000
   links:
@@ -79,8 +79,8 @@ broadcast:
 socketio:
   build: ./socketio
   volumes:
-    - shared/:/shared:rw
-    - volumes/logs:/logs:rw
+    - /shared/:/shared:rw
+    - /volumes/logs:/logs:rw
   links:
     - redis
   ports:
