@@ -96,7 +96,6 @@ nominatim:
     - /photon/:/photon:rw
     - /nominatim/:/nominatim:rw
   links:
-    - openstreetmap
     - postgres
   environment:
     SERVER_HOST: 192.168.1.200
@@ -108,8 +107,6 @@ photon:
     - /volumes/logs:/logs:rw
     - /photon/:/photon:rw
   links:
-    - openstreetmap
-    - postgres
     - nominatim
   environment:
     SERVER_HOST: 192.168.1.200
@@ -124,7 +121,6 @@ openstreetmap:
   links:
     - photon
     - postgres
-    - nominatim
   environment:
     SERVER_HOST: 192.168.1.200
 
@@ -137,7 +133,6 @@ openstreetmap-web:
     - /openstreetmap/:/openstreetmap:rw
   links:
     - photon
-    - postgres
     - nominatim
   environment:
     SERVER_HOST: 192.168.1.200
