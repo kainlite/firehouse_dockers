@@ -88,3 +88,56 @@ socketio:
   environment:
     SERVER_HOST: 192.168.1.200
 
+nominatim:
+  build: ./nominatim
+  volumes:
+    - /shared/:/shared:rw
+    - /volumes/logs:/logs:rw
+    - /photon/:/photon:rw
+    - /nominatim/:/nominatim:rw
+  links:
+    - openstreetmap
+    - postgres
+  environment:
+    SERVER_HOST: 192.168.1.200
+
+photon:
+  build: ./photon
+  volumes:
+    - /shared/:/shared:rw
+    - /volumes/logs:/logs:rw
+    - /photon/:/photon:rw
+  links:
+    - openstreetmap
+    - postgres
+    - nominatim
+  environment:
+    SERVER_HOST: 192.168.1.200
+
+openstreetmap:
+  build: ./openstreetmap
+  volumes:
+    - /shared/:/shared:rw
+    - /volumes/logs:/logs:rw
+    - /photon/:/photon:rw
+    - /openstreetmap/:/openstreetmap:rw
+  links:
+    - photon
+    - postgres
+    - nominatim
+  environment:
+    SERVER_HOST: 192.168.1.200
+
+openstreetmap-web:
+  build: ./openstreetmap-web
+  volumes:
+    - /shared/:/shared:rw
+    - /volumes/logs:/logs:rw
+    - /photon/:/photon:rw
+    - /openstreetmap/:/openstreetmap:rw
+  links:
+    - photon
+    - postgres
+    - nominatim
+  environment:
+    SERVER_HOST: 192.168.1.200
